@@ -7,7 +7,7 @@ public class EmitUserCreatedTopic {
 
     public static void main(String[] args) throws Exception {
         // Retrieve routing key and message from input or use defaults if not provided
-        String routingKey = getRoutingKey(args);
+        String routingKey = getRouting(args);
         String message = getMessage(args);
 
         System.out.println(" [x] Dispatched '" + routingKey + "':'" + message + "'");
@@ -28,7 +28,7 @@ public class EmitUserCreatedTopic {
     }
 
     // Extracts the routing key, defaults to "user.created" if none is given
-    private static String getRoutingKey(String[] input) {
+    private static String getRouting(String[] input) {
         return (input.length > 0) ? input[0] : "user.created";
     }
 
