@@ -1,6 +1,7 @@
 package com.topic;
 
 import com.rabbitmq.client.*;
+import org.json.JSONObject;
 
 public class WelcomeEmailSubscriber {
 
@@ -30,9 +31,21 @@ public class WelcomeEmailSubscriber {
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [x] Received for Welcome Email: '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+
+            try {
+                // Parse the message as JSON and extract the email field
+                JSONObject json = new JSONObject(message);
+                if (json.has("email")) {
+                    String email = json.getString("email");
+                    System.out.println(" [x] Sending welcome email to: " + email);
+                } else {
+                    System.out.println(" [x] No email found in the message.");
+                }
+            } catch (Exception e) {
+                System.err.println(" [!] Failed to parse message as JSON: " + e.getMessage());
+            }
         };
 
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
     }
 }
-
