@@ -38,7 +38,17 @@ This project is a Java-based messaging system utilizing RabbitMQ for handling us
     </dependency>
     ```
 
-3. **Build the project**:
+3. **Add RabbitMQ Library Dependency** (if using Maven):
+    Ensure your `pom.xml` includes the following:
+    ```xml
+    <dependency>
+        <groupId>com.rabbitmq</groupId>
+        <artifactId>amqp-client</artifactId>
+        <version>5.22.0</version>
+    </dependency>
+    ```
+
+4. **Build the project**:
     ```bash
     mvn clean install
     ```
